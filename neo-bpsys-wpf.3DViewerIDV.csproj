@@ -35,16 +35,20 @@
     <None Include="manifest.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="wwwroot\**\*">
+    <None Include="wwwroot\**\*" Exclude="wwwroot\hunters\**\*;wwwroot\survivors\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="icon.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
   </ItemGroup>
 
-  <ItemGroup>
-	<None Update="icon.png">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</None>
-  </ItemGroup>
+  <Target Name="RemoveBundledOfficialModelsFromOutput" AfterTargets="CopyFilesToOutputDirectory">
+    <RemoveDir Directories="$(OutDir)wwwroot\hunters;$(OutDir)wwwroot\survivors" />
+  </Target>
 
   <Import Project="..\..\neo-bpsys-wpf.PluginSdk\neo-bpsys-wpf.PluginSdk.targets" />
 

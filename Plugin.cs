@@ -33,6 +33,7 @@ public class Plugin : PluginBase
         services.AddSingleton(settings);
         services.AddSingleton<CharacterModel3DLayoutService>();
         services.AddSingleton<CharacterModel3DAssetService>();
+        services.AddSingleton<CharacterModel3DOfficialModelService>();
         services.AddSingleton<CharacterModel3DModelIndexService>();
         services.AddSingleton<CharacterModel3DBpSnapshotService>();
         services.AddSingleton<CharacterModel3DGuidanceBridgeService>();

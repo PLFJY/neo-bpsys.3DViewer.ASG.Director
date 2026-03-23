@@ -5125,9 +5125,8 @@ diffuseColor.rgb += vec3(1.0, 0.82, 0.25) * asgEdge * 0.28;
       console.error('[CharacterModel3D] 选择场景文件失败:', error)
     }
     if (!selectedPath) {
-      const input = window.prompt('请输入场景模型路径(URL 或本地路径):', state.layout.scene.modelPath || '')
-      if (!input) return
-      selectedPath = input.trim()
+      setStatus('未选择场景模型文件')
+      return
     }
     if (!selectedPath) return
     selectedPath = await importAssetForPack(selectedPath, 'auto')
@@ -5585,9 +5584,8 @@ diffuseColor.rgb += vec3(1.0, 0.82, 0.25) * asgEdge * 0.28;
       console.error('[CharacterModel3D] 选择视频文件失败:', error)
     }
     if (!selectedPath) {
-      const input = window.prompt('请输入视频路径(URL 或本地路径):', state.layout?.videoScreen?.path || '')
-      if (!input) return
-      selectedPath = input.trim()
+      setStatus('未选择视频文件')
+      return
     }
     if (!selectedPath) return
     selectedPath = await importAssetForPack(selectedPath, 'single')
@@ -5629,9 +5627,8 @@ diffuseColor.rgb += vec3(1.0, 0.82, 0.25) * asgEdge * 0.28;
       console.error('[CharacterModel3D] 选择所选槽位模型失败:', error)
     }
     if (!selectedPath) {
-      const input = window.prompt('请输入模型路径(URL 或本地路径):', '')
-      if (!input) return
-      selectedPath = input.trim()
+      setStatus('未选择模型文件')
+      return
     }
     if (!selectedPath) return
     selectedPath = await importAssetForPack(selectedPath, 'auto')
@@ -5666,9 +5663,8 @@ diffuseColor.rgb += vec3(1.0, 0.82, 0.25) * asgEdge * 0.28;
       console.error('[CharacterModel3D] 选择粒子特效失败:', error)
     }
     if (!selectedPath) {
-      const input = window.prompt('请输入粒子特效路径(GLTF/GLB，URL 或本地路径):', state.layout?.entranceParticle?.path || '')
-      if (!input) return
-      selectedPath = input.trim()
+      setStatus('未选择粒子特效文件')
+      return
     }
     if (!selectedPath) return
     const ext = getPathExt(selectedPath)

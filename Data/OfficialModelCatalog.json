@@ -1,0 +1,593 @@
+﻿{
+    "generatedAt":  "2026-03-23T22:45:01+08:00",
+    "entries":  [
+                    {
+                        "name":  "“博士”",
+                        "rawName":  "“博士”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/boshi/kexueguairen.gltf?1",
+                        "localFolderName":  "“博士”",
+                        "fileName":  "kexueguairen.gltf"
+                    },
+                    {
+                        "name":  "“跛脚羊”",
+                        "rawName":  "“跛脚羊”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/bojiaoyang/space.gltf",
+                        "localFolderName":  "“跛脚羊”",
+                        "fileName":  "space.gltf"
+                    },
+                    {
+                        "name":  "“慈善家”",
+                        "rawName":  "“慈善家”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/cishanjia/h55_survivor_m_show_idle_qd.gltf?1",
+                        "localFolderName":  "“慈善家”",
+                        "fileName":  "h55_survivor_m_show_idle_qd.gltf"
+                    },
+                    {
+                        "name":  "“噩梦”",
+                        "rawName":  "“噩梦”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/heizhentan/messager.gltf?1",
+                        "localFolderName":  "“噩梦”",
+                        "fileName":  "messager.gltf"
+                    },
+                    {
+                        "name":  "“法罗女士”",
+                        "rawName":  "“法罗女士”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/faluonvshi/faluo.gltf",
+                        "localFolderName":  "“法罗女士”",
+                        "fileName":  "faluo.gltf"
+                    },
+                    {
+                        "name":  "“杰克”",
+                        "rawName":  "“杰克”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/jk/jieke.gltf?1",
+                        "localFolderName":  "“杰克”",
+                        "fileName":  "jieke.gltf"
+                    },
+                    {
+                        "name":  "“女王蜂”",
+                        "rawName":  "“女王蜂”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/nvfengwang/spkunc_idle.gltf",
+                        "localFolderName":  "“女王蜂”",
+                        "fileName":  "spkunc_idle.gltf"
+                    },
+                    {
+                        "name":  "“骑士”",
+                        "rawName":  "“骑士”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/duxinqishi/duxinqishi.gltf",
+                        "localFolderName":  "“骑士”",
+                        "fileName":  "duxinqishi.gltf"
+                    },
+                    {
+                        "name":  "“囚徒”",
+                        "rawName":  "“囚徒”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/qiutu/h55_survivor_m_qiutu.gltf?1",
+                        "localFolderName":  "“囚徒”",
+                        "fileName":  "h55_survivor_m_qiutu.gltf"
+                    },
+                    {
+                        "name":  "“使徒”",
+                        "rawName":  "“使徒”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/shitu/joan_idle.gltf?1",
+                        "localFolderName":  "“使徒”",
+                        "fileName":  "joan_idle.gltf"
+                    },
+                    {
+                        "name":  "“台球手”",
+                        "rawName":  "“台球手”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/taiqiushou/show_idle_billy_a03.gltf",
+                        "localFolderName":  "“台球手”",
+                        "fileName":  "show_idle_billy_a03.gltf"
+                    },
+                    {
+                        "name":  "“逃脱大师”",
+                        "rawName":  "“逃脱大师”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/taotuodashi/show_idle_ttds.gltf",
+                        "localFolderName":  "“逃脱大师”",
+                        "fileName":  "show_idle_ttds.gltf"
+                    },
+                    {
+                        "name":  "“小女孩”",
+                        "rawName":  "“小女孩”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/xnh/xiaonvhai.gltf?1",
+                        "localFolderName":  "“小女孩”",
+                        "fileName":  "xiaonvhai.gltf"
+                    },
+                    {
+                        "name":  "“心理学家”",
+                        "rawName":  "“心理学家”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/xinlixuejia/xinlixuejia.gltf?1",
+                        "localFolderName":  "“心理学家”",
+                        "fileName":  "xinlixuejia.gltf"
+                    },
+                    {
+                        "name":  "“喧嚣”",
+                        "rawName":  "“喧嚣”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/xuanxiao/show_idle_spzaji.gltf",
+                        "localFolderName":  "“喧嚣”",
+                        "fileName":  "show_idle_spzaji.gltf"
+                    },
+                    {
+                        "name":  "“愚人金”",
+                        "rawName":  "“愚人金”",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/yurenjin/KANTAN.gltf",
+                        "localFolderName":  "“愚人金”",
+                        "fileName":  "KANTAN.gltf"
+                    },
+                    {
+                        "name":  "26号守卫",
+                        "rawName":  "26号守卫",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/26hsw/h55_bon_idle.gltf?1",
+                        "localFolderName":  "26号守卫",
+                        "fileName":  "h55_bon_idle.gltf"
+                    },
+                    {
+                        "name":  "爱哭鬼",
+                        "rawName":  "爱哭鬼",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/aikugui/h55_boy_idle.gltf?1",
+                        "localFolderName":  "爱哭鬼",
+                        "fileName":  "h55_boy_idle.gltf"
+                    },
+                    {
+                        "name":  "病患",
+                        "rawName":  "病患",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/binghuan/HuanBing_cp_nan.gltf?1",
+                        "localFolderName":  "病患",
+                        "fileName":  "HuanBing_cp_nan.gltf"
+                    },
+                    {
+                        "name":  "厂长",
+                        "rawName":  "厂长",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/changzhang/changzhang.gltf?1",
+                        "localFolderName":  "厂长",
+                        "fileName":  "changzhang.gltf"
+                    },
+                    {
+                        "name":  "大副",
+                        "rawName":  "大副",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/dafu/h55_survivor_m_dafu_idle.gltf?1",
+                        "localFolderName":  "大副",
+                        "fileName":  "h55_survivor_m_dafu_idle.gltf"
+                    },
+                    {
+                        "name":  "雕刻家",
+                        "rawName":  "雕刻家",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/diaokeshi/diaokeshi.gltf?1",
+                        "localFolderName":  "雕刻家",
+                        "fileName":  "diaokeshi.gltf"
+                    },
+                    {
+                        "name":  "调酒师",
+                        "rawName":  "调酒师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/tiaojiushi/tiaojiushi.gltf?1",
+                        "localFolderName":  "调酒师",
+                        "fileName":  "tiaojiushi.gltf"
+                    },
+                    {
+                        "name":  "调香师",
+                        "rawName":  "调香师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/xiangshuishi/h55_survivor_w_xiangshuishi.gltf?1",
+                        "localFolderName":  "调香师",
+                        "fileName":  "h55_survivor_w_xiangshuishi.gltf"
+                    },
+                    {
+                        "name":  "飞行家",
+                        "rawName":  "飞行家",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/feixingjia/feixingjia.gltf",
+                        "localFolderName":  "飞行家",
+                        "fileName":  "feixingjia.gltf"
+                    },
+                    {
+                        "name":  "疯眼",
+                        "rawName":  "疯眼",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/fengyan/burke_lv2_idle.gltf?1",
+                        "localFolderName":  "疯眼",
+                        "fileName":  "burke_lv2_idle.gltf"
+                    },
+                    {
+                        "name":  "歌剧演员",
+                        "rawName":  "歌剧演员",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/gejuyanyuan/geju.gltf",
+                        "localFolderName":  "歌剧演员",
+                        "fileName":  "geju.gltf"
+                    },
+                    {
+                        "name":  "弓箭手",
+                        "rawName":  "弓箭手",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/gongjianshou/gongjianshou.gltf",
+                        "localFolderName":  "弓箭手",
+                        "fileName":  "gongjianshou.gltf"
+                    },
+                    {
+                        "name":  "古董商",
+                        "rawName":  "古董商",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/gudongshang/wushuniang.gltf?1",
+                        "localFolderName":  "古董商",
+                        "fileName":  "wushuniang.gltf"
+                    },
+                    {
+                        "name":  "红蝶",
+                        "rawName":  "红蝶",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/hongdie/h55_butcher_banshee.gltf?1",
+                        "localFolderName":  "红蝶",
+                        "fileName":  "h55_butcher_banshee.gltf"
+                    },
+                    {
+                        "name":  "红夫人",
+                        "rawName":  "红夫人",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/hongfuren/h55_redqu.gltf?1",
+                        "localFolderName":  "红夫人",
+                        "fileName":  "h55_redqu.gltf"
+                    },
+                    {
+                        "name":  "画家",
+                        "rawName":  "画家",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/huajia/huajia.gltf?1",
+                        "localFolderName":  "画家",
+                        "fileName":  "huajia.gltf"
+                    },
+                    {
+                        "name":  "幻灯师",
+                        "rawName":  "幻灯师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/huandengshi/hds_idle.gltf",
+                        "localFolderName":  "幻灯师",
+                        "fileName":  "hds_idle.gltf"
+                    },
+                    {
+                        "name":  "黄衣之主",
+                        "rawName":  "黄衣之主",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/huangyizhujiao/huanyizhizhu.gltf?1",
+                        "localFolderName":  "黄衣之主",
+                        "fileName":  "huanyizhizhu.gltf"
+                    },
+                    {
+                        "name":  "火灾调查员",
+                        "rawName":  "火灾调查员",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/huozaidiaochayuan/xiaofang.gltf",
+                        "localFolderName":  "火灾调查员",
+                        "fileName":  "xiaofang.gltf"
+                    },
+                    {
+                        "name":  "击球手",
+                        "rawName":  "击球手",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/jiqiushou/h55_survivor_m_jiqiu.gltf?1",
+                        "localFolderName":  "击球手",
+                        "fileName":  "h55_survivor_m_jiqiu.gltf"
+                    },
+                    {
+                        "name":  "机械师",
+                        "rawName":  "机械师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/jixieshi/jixieshi.gltf?1",
+                        "localFolderName":  "机械师",
+                        "fileName":  "jixieshi.gltf"
+                    },
+                    {
+                        "name":  "记录员",
+                        "rawName":  "记录员",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/lady/lady.gltf?1",
+                        "localFolderName":  "记录员",
+                        "fileName":  "lady.gltf"
+                    },
+                    {
+                        "name":  "记者",
+                        "rawName":  "记者",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/jizhe/jizhe1.gltf",
+                        "localFolderName":  "记者",
+                        "fileName":  "jizhe1.gltf"
+                    },
+                    {
+                        "name":  "祭司",
+                        "rawName":  "祭司",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/jisi/jisi.gltf?1",
+                        "localFolderName":  "祭司",
+                        "fileName":  "jisi.gltf"
+                    },
+                    {
+                        "name":  "教授",
+                        "rawName":  "教授",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/jiaoshou/h55_survivor_m_niexi.gltf?1",
+                        "localFolderName":  "教授",
+                        "fileName":  "h55_survivor_m_niexi.gltf"
+                    },
+                    {
+                        "name":  "勘探员",
+                        "rawName":  "勘探员",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/kantanyuan/h55_survivor_m_kantan.gltf?1",
+                        "localFolderName":  "勘探员",
+                        "fileName":  "h55_survivor_m_kantan.gltf"
+                    },
+                    {
+                        "name":  "空军",
+                        "rawName":  "空军",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/kongjun/kongjun.gltf?1",
+                        "localFolderName":  "空军",
+                        "fileName":  "kongjun.gltf"
+                    },
+                    {
+                        "name":  "哭泣小丑",
+                        "rawName":  "哭泣小丑",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/spxiaochou/xiaochou.gltf?1",
+                        "localFolderName":  "哭泣小丑",
+                        "fileName":  "xiaochou.gltf"
+                    },
+                    {
+                        "name":  "昆虫学者",
+                        "rawName":  "昆虫学者",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/kunchongxuezhe/kunchong.gltf?1",
+                        "localFolderName":  "昆虫学者",
+                        "fileName":  "kunchong.gltf"
+                    },
+                    {
+                        "name":  "拉拉队员",
+                        "rawName":  "拉拉队员",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/laladuiyuan/laladui.gltf",
+                        "localFolderName":  "拉拉队员",
+                        "fileName":  "laladui.gltf"
+                    },
+                    {
+                        "name":  "蜡像师",
+                        "rawName":  "蜡像师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/laxiangshi/wax_destroy.gltf?1",
+                        "localFolderName":  "蜡像师",
+                        "fileName":  "wax_destroy.gltf"
+                    },
+                    {
+                        "name":  "鹿头",
+                        "rawName":  "鹿头",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/lutou/lutou.gltf?1",
+                        "localFolderName":  "鹿头",
+                        "fileName":  "lutou.gltf"
+                    },
+                    {
+                        "name":  "律师",
+                        "rawName":  "律师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/lvshi/h55_survivor_m_it.gltf?1",
+                        "localFolderName":  "律师",
+                        "fileName":  "h55_survivor_m_it.gltf"
+                    },
+                    {
+                        "name":  "盲女",
+                        "rawName":  "盲女",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/mangnv/mangnv.gltf?1",
+                        "localFolderName":  "盲女",
+                        "fileName":  "mangnv.gltf"
+                    },
+                    {
+                        "name":  "冒险家",
+                        "rawName":  "冒险家",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/maoxianjia/h55_survivor_m_show_idle_xcz.gltf?1",
+                        "localFolderName":  "冒险家",
+                        "fileName":  "h55_survivor_m_show_idle_xcz.gltf"
+                    },
+                    {
+                        "name":  "梦之女巫",
+                        "rawName":  "梦之女巫",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/mengzhinvwu/h55_yidhra_zt_idle.gltf?1",
+                        "localFolderName":  "梦之女巫",
+                        "fileName":  "h55_yidhra_zt_idle.gltf"
+                    },
+                    {
+                        "name":  "魔术师",
+                        "rawName":  "魔术师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/moshushi/h55_survivor_m_show_idle.gltf?1",
+                        "localFolderName":  "魔术师",
+                        "fileName":  "h55_survivor_m_show_idle.gltf"
+                    },
+                    {
+                        "name":  "木偶师",
+                        "rawName":  "木偶师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/muoushi/bugoushi.gltf",
+                        "localFolderName":  "木偶师",
+                        "fileName":  "bugoushi.gltf"
+                    },
+                    {
+                        "name":  "孽蜥",
+                        "rawName":  "孽蜥",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/niexi/h55_lizard_idle.gltf?1",
+                        "localFolderName":  "孽蜥",
+                        "fileName":  "h55_lizard_idle.gltf"
+                    },
+                    {
+                        "name":  "牛仔",
+                        "rawName":  "牛仔",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/niuzai/niuzai.gltf?1",
+                        "localFolderName":  "牛仔",
+                        "fileName":  "niuzai.gltf"
+                    },
+                    {
+                        "name":  "破轮",
+                        "rawName":  "破轮",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/polun/polun_.gltf?1",
+                        "localFolderName":  "破轮",
+                        "fileName":  "polun_.gltf"
+                    },
+                    {
+                        "name":  "气象学家",
+                        "rawName":  "气象学家",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/qixiangxuejia/qixiang.gltf",
+                        "localFolderName":  "气象学家",
+                        "fileName":  "qixiang.gltf"
+                    },
+                    {
+                        "name":  "前锋",
+                        "rawName":  "前锋",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/qianfeng/qianfeng.gltf?1",
+                        "localFolderName":  "前锋",
+                        "fileName":  "qianfeng.gltf"
+                    },
+                    {
+                        "name":  "入殓师",
+                        "rawName":  "入殓师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/rulianshi/rulianshi.gltf?1",
+                        "localFolderName":  "入殓师",
+                        "fileName":  "rulianshi.gltf"
+                    },
+                    {
+                        "name":  "摄影师",
+                        "rawName":  "摄影师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/shexiangshi/h55_Joseph_idle.gltf?1",
+                        "localFolderName":  "摄影师",
+                        "fileName":  "h55_Joseph_idle.gltf"
+                    },
+                    {
+                        "name":  "时空之影",
+                        "rawName":  "时空之影",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/shikongzhiying/skzy.gltf",
+                        "localFolderName":  "时空之影",
+                        "fileName":  "skzy.gltf"
+                    },
+                    {
+                        "name":  "守墓人",
+                        "rawName":  "守墓人",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/shoumuren/shoumuren.gltf?1",
+                        "localFolderName":  "守墓人",
+                        "fileName":  "shoumuren.gltf"
+                    },
+                    {
+                        "name":  "守夜人",
+                        "rawName":  "守夜人",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/shouyeren/tufuithaqua.gltf?1",
+                        "localFolderName":  "守夜人",
+                        "fileName":  "tufuithaqua.gltf"
+                    },
+                    {
+                        "name":  "宿伞之魂",
+                        "rawName":  "宿伞之魂",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/heibaiwuchang/h55_wuchang_HB_idle.gltf?1",
+                        "localFolderName":  "宿伞之魂",
+                        "fileName":  "h55_wuchang_HB_idle.gltf"
+                    },
+                    {
+                        "name":  "玩具商",
+                        "rawName":  "玩具商",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/wanjushang/h55_survivor_w_shangren_idle.gltf?1",
+                        "localFolderName":  "玩具商",
+                        "fileName":  "h55_survivor_w_shangren_idle.gltf"
+                    },
+                    {
+                        "name":  "舞女",
+                        "rawName":  "舞女",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/wunv/wunv.gltf?1",
+                        "localFolderName":  "舞女",
+                        "fileName":  "wunv.gltf"
+                    },
+                    {
+                        "name":  "先知",
+                        "rawName":  "先知",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/zhanpushi/h55_survivor_m_zbs_lv1_niao_idle.gltf?1",
+                        "localFolderName":  "先知",
+                        "fileName":  "h55_survivor_m_zbs_lv1_niao_idle.gltf"
+                    },
+                    {
+                        "name":  "小丑",
+                        "rawName":  "小丑",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/xiaochou/xiaochou.gltf?1",
+                        "localFolderName":  "小丑",
+                        "fileName":  "xiaochou.gltf"
+                    },
+                    {
+                        "name":  "小说家",
+                        "rawName":  "小说家",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/bzt/baizentan.gltf?1",
+                        "localFolderName":  "小说家",
+                        "fileName":  "baizentan.gltf"
+                    },
+                    {
+                        "name":  "小提琴家",
+                        "rawName":  "小提琴家",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/tiqinjia/H55_paganini_skin_idle.gltf?1",
+                        "localFolderName":  "小提琴家",
+                        "fileName":  "H55_paganini_skin_idle.gltf"
+                    },
+                    {
+                        "name":  "幸运儿",
+                        "rawName":  "幸运儿",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/xingyuner/dm65_survivor_bo_idle.gltf?1",
+                        "localFolderName":  "幸运儿",
+                        "fileName":  "dm65_survivor_bo_idle.gltf"
+                    },
+                    {
+                        "name":  "野人",
+                        "rawName":  "野人",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/yeren/yerenqishi.gltf?1",
+                        "localFolderName":  "野人",
+                        "fileName":  "yerenqishi.gltf"
+                    },
+                    {
+                        "name":  "医生",
+                        "rawName":  "医生",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/yiyaoshi/yiyaoshi.gltf?1",
+                        "localFolderName":  "医生",
+                        "fileName":  "yiyaoshi.gltf"
+                    },
+                    {
+                        "name":  "隐士",
+                        "rawName":  "隐士",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/yinshi/hermit.gltf?1",
+                        "localFolderName":  "隐士",
+                        "fileName":  "hermit.gltf"
+                    },
+                    {
+                        "name":  "佣兵",
+                        "rawName":  "佣兵",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/guyongbing/yongbing.gltf?1",
+                        "localFolderName":  "佣兵",
+                        "fileName":  "yongbing.gltf"
+                    },
+                    {
+                        "name":  "邮差",
+                        "rawName":  "邮差",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/youchai/h55_survivor_m_yc_show_idle_yc.gltf?1",
+                        "localFolderName":  "邮差",
+                        "fileName":  "h55_survivor_m_yc_show_idle_yc.gltf"
+                    },
+                    {
+                        "name":  "渔女",
+                        "rawName":  "渔女",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/yunv/h55_yunv_idle.gltf?1",
+                        "localFolderName":  "渔女",
+                        "fileName":  "h55_yunv_idle.gltf"
+                    },
+                    {
+                        "name":  "园丁",
+                        "rawName":  "园丁",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/yuanding/yuanding.gltf?1",
+                        "localFolderName":  "园丁",
+                        "fileName":  "yuanding.gltf"
+                    },
+                    {
+                        "name":  "杂货商",
+                        "rawName":  "杂货商",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/zahuoshang/idle02.gltf",
+                        "localFolderName":  "杂货商",
+                        "fileName":  "idle02.gltf"
+                    },
+                    {
+                        "name":  "杂技演员",
+                        "rawName":  "杂技演员",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/zajiyanyuan/zajiyanyuan.gltf?1",
+                        "localFolderName":  "杂技演员",
+                        "fileName":  "zajiyanyuan.gltf"
+                    },
+                    {
+                        "name":  "蜘蛛",
+                        "rawName":  "蜘蛛",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/zhizhu/zhizhu.gltf?1",
+                        "localFolderName":  "蜘蛛",
+                        "fileName":  "zhizhu.gltf"
+                    },
+                    {
+                        "name":  "咒术师",
+                        "rawName":  "咒术师",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/zhoushu/h55_survivor_w_zhoushu.gltf?1",
+                        "localFolderName":  "咒术师",
+                        "fileName":  "h55_survivor_w_zhoushu.gltf"
+                    },
+                    {
+                        "name":  "作曲家",
+                        "rawName":  "作曲家",
+                        "modelUrl":  "https://id5.res.netease.com/pc/gw/20220408094220/data/role/yinyuejia/yinyuejia.gltf?1",
+                        "localFolderName":  "作曲家",
+                        "fileName":  "yinyuejia.gltf"
+                    }
+                ]
+}

@@ -90,6 +90,7 @@ public sealed class CharacterModel3DWebHostService : IDisposable
             }
 
             Directory.CreateDirectory(_runtimeContext.AssetsFolder);
+            Directory.CreateDirectory(_runtimeContext.OfficialModelsFolder);
 
             _cts = new CancellationTokenSource();
             _listener = new HttpListener();
@@ -334,9 +335,15 @@ public sealed class CharacterModel3DWebHostService : IDisposable
             return Path.Combine(_runtimeContext.AssetsFolder, path["user-assets/".Length..].Replace('/', Path.DirectorySeparatorChar));
         }
 
+        if (path.StartsWith("official-models/", StringComparison.OrdinalIgnoreCase))
+        {
+            return Path.Combine(_runtimeContext.OfficialModelsFolder, path["official-models/".Length..].Replace('/', Path.DirectorySeparatorChar));
+        }
+
         if (path.StartsWith("official/", StringComparison.OrdinalIgnoreCase))
         {
-            path = path["official/".Length..];
+            var officialModelPath = path["official/".Length..];
+            return Path.Combine(_runtimeContext.OfficialModelsFolder, officialModelPath.Replace('/', Path.DirectorySeparatorChar));
         }
 
         return Path.Combine(_runtimeContext.WwwRootFolder, path.Replace('/', Path.DirectorySeparatorChar));

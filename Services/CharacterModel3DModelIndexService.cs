@@ -10,23 +10,26 @@ namespace neo_bpsys_wpf._3DViewerIDV.Services;
 
 public sealed class CharacterModel3DModelIndexService
 {
-    private readonly PluginRuntimeContext _runtimeContext;
     private readonly ISharedDataService _sharedDataService;
+    private readonly CharacterModel3DOfficialModelService _officialModelService;
     private readonly object _gate = new();
-    private Dictionary<string, string>? _map;
+    private Dictionary<string, OfficialModelCatalogEntry>? _map;
 
     public CharacterModel3DModelIndexService(
-        PluginRuntimeContext runtimeContext,
-        ISharedDataService sharedDataService)
+        ISharedDataService sharedDataService,
+        CharacterModel3DOfficialModelService officialModelService)
     {
-        _runtimeContext = runtimeContext;
         _sharedDataService = sharedDataService;
+        _officialModelService = officialModelService;
     }
 
     public IReadOnlyDictionary<string, string> GetOfficialModelMap()
     {
         EnsureIndexed();
-        return _map!;
+        return _map!.ToDictionary(
+            item => item.Key,
+            item => _officialModelService.GetServedModelPath(item.Value),
+            StringComparer.OrdinalIgnoreCase);
     }
 
     public string GetOfficialModelUrl(string? roleName)
@@ -38,7 +41,9 @@ public sealed class CharacterModel3DModelIndexService
         }
 
         var key = NormalizeKey(roleName);
-        return _map!.TryGetValue(key, out var url) ? url : string.Empty;
+        return _map!.TryGetValue(key, out var entry)
+            ? _officialModelService.GetServedModelPath(entry)
+            : string.Empty;
     }
 
     private void EnsureIndexed()
@@ -55,100 +60,88 @@ public sealed class CharacterModel3DModelIndexService
                 return;
             }
 
-            var result = new Dictionary<string, string>();
-            IndexCamp("survivors", _sharedDataService.SurCharaDict.Values);
-            IndexCamp("hunters", _sharedDataService.HunCharaDict.Values);
+            var result = new Dictionary<string, OfficialModelCatalogEntry>(StringComparer.OrdinalIgnoreCase);
+            var catalogLookup = _officialModelService.GetCatalogEntries()
+                .SelectMany(entry => BuildAliases(entry).Select(alias => new KeyValuePair<string, OfficialModelCatalogEntry>(alias, entry)))
+                .GroupBy(item => item.Key, StringComparer.OrdinalIgnoreCase)
+                .ToDictionary(group => group.Key, group => group.First().Value, StringComparer.OrdinalIgnoreCase);
+
+            foreach (var entry in catalogLookup.Values.Distinct())
+            {
+                foreach (var alias in BuildAliases(entry))
+                {
+                    TryAddAlias(alias, entry);
+                }
+            }
+
+            IndexCharacters(_sharedDataService.SurCharaDict.Values);
+            IndexCharacters(_sharedDataService.HunCharaDict.Values);
             _map = result;
             return;
 
-            void IndexCamp(string folderName, IEnumerable<Character> characters)
+            void IndexCharacters(IEnumerable<Character> characters)
             {
-                var campRoot = Path.Combine(_runtimeContext.WwwRootFolder, folderName);
-                if (!Directory.Exists(campRoot))
-                {
-                    return;
-                }
-
-                var folderLookup = Directory
-                    .GetDirectories(campRoot)
-                    .Select(path => new
-                    {
-                        FolderName = Path.GetFileName(path),
-                        Url = GetRelativeModelUrl(folderName, path)
-                    })
-                    .Where(x => !string.IsNullOrWhiteSpace(x.Url))
-                    .ToDictionary(x => NormalizeKey(x.FolderName), x => x, StringComparer.OrdinalIgnoreCase);
-
-                foreach (var item in folderLookup.Values)
-                {
-                    TryAddAlias(item.FolderName, item.Url);
-                }
-
                 foreach (var character in characters)
                 {
-                    var folderNameFromImage = Path.GetFileNameWithoutExtension(character.ImageFileName ?? string.Empty);
-                    if (string.IsNullOrWhiteSpace(folderNameFromImage))
+                    if (character == null)
                     {
                         continue;
                     }
 
-                    if (!folderLookup.TryGetValue(NormalizeKey(folderNameFromImage), out var entry))
+                    var candidates = new[]
                     {
-                        continue;
-                    }
+                        character.Name,
+                        character.ImageFileName,
+                        Path.GetFileNameWithoutExtension(character.ImageFileName ?? string.Empty)
+                    };
 
-                    TryAddAlias(character.Name, entry.Url);
-                    TryAddAlias(character.ImageFileName, entry.Url);
-                    TryAddAlias(folderNameFromImage, entry.Url);
+                    foreach (var candidate in candidates)
+                    {
+                        var normalized = NormalizeKey(candidate);
+                        if (string.IsNullOrWhiteSpace(normalized))
+                        {
+                            continue;
+                        }
+
+                        if (!catalogLookup.TryGetValue(normalized, out var entry))
+                        {
+                            continue;
+                        }
+
+                        foreach (var alias in candidates)
+                        {
+                            TryAddAlias(alias, entry);
+                        }
+
+                        foreach (var alias in BuildAliases(entry))
+                        {
+                            TryAddAlias(alias, entry);
+                        }
+                        break;
+                    }
                 }
             }
 
-            void TryAddAlias(string? alias, string url)
+            void TryAddAlias(string? alias, OfficialModelCatalogEntry entry)
             {
                 var key = NormalizeKey(alias);
-                if (string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(url))
+                if (string.IsNullOrWhiteSpace(key))
                 {
                     return;
                 }
 
-                result.TryAdd(key, url);
+                result.TryAdd(key, entry);
             }
         }
     }
 
-    private static string GetRelativeModelUrl(string campFolder, string physicalFolder)
+    private static IEnumerable<string> BuildAliases(OfficialModelCatalogEntry entry)
     {
-        var directoryName = Path.GetFileName(physicalFolder);
-        if (string.IsNullOrWhiteSpace(directoryName))
+        yield return entry.Name;
+        if (!string.Equals(entry.RawName, entry.Name, StringComparison.OrdinalIgnoreCase))
         {
-            return string.Empty;
+            yield return entry.RawName;
         }
-
-        var files = Directory.GetFiles(physicalFolder)
-            .Where(file =>
-            {
-                var ext = Path.GetExtension(file).ToLowerInvariant();
-                return ext is ".gltf" or ".glb";
-            })
-            .ToList();
-
-        if (files.Count == 0)
-        {
-            return string.Empty;
-        }
-
-        var preferred = files.FirstOrDefault(file =>
-                            Path.GetFileNameWithoutExtension(file).Equals(
-                                directoryName,
-                                StringComparison.OrdinalIgnoreCase))
-                        ?? files[0];
-
-        return "/" + campFolder + "/" + EncodePathSegment(directoryName) + "/" + EncodePathSegment(Path.GetFileName(preferred));
-    }
-
-    private static string EncodePathSegment(string value)
-    {
-        return Uri.EscapeDataString(value);
     }
 
     private static string NormalizeKey(string? value)

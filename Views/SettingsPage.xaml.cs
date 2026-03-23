@@ -7,8 +7,8 @@ using Wpf.Ui.Controls;
 namespace neo_bpsys_wpf._3DViewerIDV.Views;
 
 [BackendPageInfo(
-    id: "3DViewerSettings",
-    name: "3DViewerIDV",
+    id: "8786f5d3-ae4d-44a4-a725-eee3147e8491",
+    name: "3DViewer.ASG.Director",
     icon: SymbolRegular.Cube24,
     category: BackendPageCategory.External
 )]
