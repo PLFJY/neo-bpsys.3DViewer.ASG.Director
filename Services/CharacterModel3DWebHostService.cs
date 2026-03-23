@@ -1,7 +1,9 @@
 using neo_bpsys_wpf._3DViewerIDV.Models;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -261,9 +263,20 @@ public sealed class CharacterModel3DWebHostService : IDisposable
     private async Task HandleImportAssetAsync(HttpListenerRequest request, HttpListenerResponse response)
     {
         var body = await ReadJsonBodyAsync(request) as JsonObject;
-        var sourcePath = body?["path"]?.GetValue<string>() ?? string.Empty;
         var copyMode = body?["copyMode"]?.GetValue<string>() ?? "auto";
-        var result = _assetService.ImportAsset(sourcePath, copyMode);
+        AssetImportResult result;
+
+        var uploadedFiles = ReadUploadedBrowserFiles(body);
+        if (uploadedFiles.Count > 0)
+        {
+            var entryRelativePath = body?["entryRelativePath"]?.GetValue<string>() ?? string.Empty;
+            result = _assetService.ImportUploadedFiles(uploadedFiles, entryRelativePath, copyMode);
+        }
+        else
+        {
+            var sourcePath = body?["path"]?.GetValue<string>() ?? string.Empty;
+            result = _assetService.ImportAsset(sourcePath, copyMode);
+        }
 
         await WriteJsonAsync(response, new JsonObject
         {
@@ -272,6 +285,33 @@ public sealed class CharacterModel3DWebHostService : IDisposable
             ["copied"] = result.Copied,
             ["mode"] = result.Mode
         });
+    }
+
+    private static List<UploadedBrowserFile> ReadUploadedBrowserFiles(JsonObject? body)
+    {
+        var files = new List<UploadedBrowserFile>();
+        if (body?["files"] is not JsonArray array)
+        {
+            return files;
+        }
+
+        foreach (var item in array.OfType<JsonObject>())
+        {
+            var fileName = item["name"]?.GetValue<string>() ?? string.Empty;
+            var relativePath = item["relativePath"]?.GetValue<string>() ?? fileName;
+            var base64 = item["base64"]?.GetValue<string>() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(fileName) || string.IsNullOrWhiteSpace(base64))
+            {
+                continue;
+            }
+
+            files.Add(new UploadedBrowserFile(
+                fileName,
+                relativePath,
+                Convert.FromBase64String(base64)));
+        }
+
+        return files;
     }
 
     private async Task HandleSseAsync(HttpListenerResponse response, CancellationToken cancellationToken)

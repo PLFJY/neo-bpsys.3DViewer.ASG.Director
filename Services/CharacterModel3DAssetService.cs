@@ -1,5 +1,6 @@
 using neo_bpsys_wpf._3DViewerIDV.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -55,6 +56,71 @@ public sealed class CharacterModel3DAssetService
         var targetFileName = $"{SanitizeFileName(Path.GetFileNameWithoutExtension(rawPath))}_{Guid.NewGuid():N}{ext}";
         var targetFilePath = Path.Combine(categoryRoot, targetFileName);
         File.Copy(rawPath, targetFilePath, true);
+        return new AssetImportResult(ToAssetsUrl(targetFilePath), true, "file");
+    }
+
+    public AssetImportResult ImportUploadedFiles(
+        IReadOnlyCollection<UploadedBrowserFile> files,
+        string? entryRelativePath,
+        string? copyMode = "auto")
+    {
+        if (files == null || files.Count == 0)
+        {
+            throw new FileNotFoundException("Uploaded files are empty.");
+        }
+
+        var normalizedEntryPath = NormalizeRelativePath(entryRelativePath);
+        var entryFile = files.FirstOrDefault(file =>
+            string.Equals(NormalizeRelativePath(file.RelativePath), normalizedEntryPath, StringComparison.OrdinalIgnoreCase)
+            || string.Equals(file.FileName, Path.GetFileName(normalizedEntryPath), StringComparison.OrdinalIgnoreCase))
+            ?? files.First();
+
+        var ext = Path.GetExtension(entryFile.FileName).ToLowerInvariant();
+        var category = GetAssetCategory(ext);
+        var categoryRoot = Path.Combine(_runtimeContext.AssetsFolder, category);
+        Directory.CreateDirectory(categoryRoot);
+
+        var requiresFolderMode = files.Count > 1
+                                 || files.Any(file => NormalizeRelativePath(file.RelativePath).Contains('/'));
+        var mode = ResolveCopyMode(copyMode, ext);
+        if (requiresFolderMode && string.Equals(mode, "file", StringComparison.OrdinalIgnoreCase))
+        {
+            mode = "folder";
+        }
+
+        if (mode == "folder")
+        {
+            var targetDirectory = Path.Combine(
+                categoryRoot,
+                $"{SanitizeFileName(Path.GetFileNameWithoutExtension(entryFile.FileName))}_{Guid.NewGuid():N}");
+            Directory.CreateDirectory(targetDirectory);
+
+            foreach (var file in files)
+            {
+                var relativePath = NormalizeRelativePath(file.RelativePath);
+                if (string.IsNullOrWhiteSpace(relativePath))
+                {
+                    relativePath = file.FileName;
+                }
+
+                var targetPath = Path.Combine(targetDirectory, relativePath.Replace('/', Path.DirectorySeparatorChar));
+                Directory.CreateDirectory(Path.GetDirectoryName(targetPath)!);
+                File.WriteAllBytes(targetPath, file.Bytes);
+            }
+
+            var normalizedEntry = NormalizeRelativePath(entryFile.RelativePath);
+            if (string.IsNullOrWhiteSpace(normalizedEntry))
+            {
+                normalizedEntry = entryFile.FileName;
+            }
+
+            var copiedFilePath = Path.Combine(targetDirectory, normalizedEntry.Replace('/', Path.DirectorySeparatorChar));
+            return new AssetImportResult(ToAssetsUrl(copiedFilePath), true, "folder");
+        }
+
+        var targetFileName = $"{SanitizeFileName(Path.GetFileNameWithoutExtension(entryFile.FileName))}_{Guid.NewGuid():N}{ext}";
+        var targetFilePath = Path.Combine(categoryRoot, targetFileName);
+        File.WriteAllBytes(targetFilePath, entryFile.Bytes);
         return new AssetImportResult(ToAssetsUrl(targetFilePath), true, "file");
     }
 
@@ -118,6 +184,19 @@ public sealed class CharacterModel3DAssetService
         var sanitized = new string(fileName.Select(ch => invalid.Contains(ch) ? '_' : ch).ToArray());
         return string.IsNullOrWhiteSpace(sanitized) ? "asset" : sanitized;
     }
+
+    private static string NormalizeRelativePath(string? path)
+    {
+        var normalized = (path ?? string.Empty).Trim().Replace('\\', '/').Trim('/');
+        while (normalized.StartsWith("../", StringComparison.Ordinal))
+        {
+            normalized = normalized[3..];
+        }
+
+        return normalized;
+    }
 }
 
 public sealed record AssetImportResult(string Path, bool Copied, string Mode);
+
+public sealed record UploadedBrowserFile(string FileName, string RelativePath, byte[] Bytes);

@@ -57,6 +57,113 @@
     return window.chrome && window.chrome.webview ? window.chrome.webview : null
   }
 
+  function extractExtensions(options) {
+    const filters = options && Array.isArray(options.filters) ? options.filters : []
+    return filters
+      .flatMap((item) => Array.isArray(item.extensions) ? item.extensions : [])
+      .map((ext) => String(ext || '').trim().replace(/^\./, '').toLowerCase())
+      .filter(Boolean)
+  }
+
+  function buildAcceptValue(extensions) {
+    const values = Array.isArray(extensions) ? extensions : []
+    return values.map((ext) => `.${ext}`).join(',')
+  }
+
+  function isVideoPicker(extensions) {
+    const list = Array.isArray(extensions) ? extensions : []
+    return list.length > 0 && list.every((ext) => ['mp4', 'webm', 'ogg', 'mov', 'm4v'].includes(ext))
+  }
+
+  function chooseBrowserEntryFile(files, extensions) {
+    const list = Array.isArray(files) ? files : []
+    if (!list.length) return null
+    const allow = new Set((Array.isArray(extensions) ? extensions : []).map((ext) => String(ext || '').toLowerCase()))
+    const directMatch = list.find((file) => allow.has(String(file.name || '').split('.').pop()?.toLowerCase() || ''))
+    return directMatch || list[0]
+  }
+
+  async function fileToBase64(file) {
+    const buffer = await file.arrayBuffer()
+    const bytes = new Uint8Array(buffer)
+    let binary = ''
+    const chunkSize = 0x8000
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+      const chunk = bytes.subarray(i, i + chunkSize)
+      binary += String.fromCharCode(...chunk)
+    }
+    return btoa(binary)
+  }
+
+  async function uploadBrowserSelectedFiles(fileList, extensions) {
+    const files = Array.from(fileList || [])
+    if (!files.length) {
+      return { success: false, canceled: true }
+    }
+
+    const entryFile = chooseBrowserEntryFile(files, extensions)
+    if (!entryFile) {
+      return { success: false, error: 'no-entry-file' }
+    }
+
+    const payloadFiles = await Promise.all(files.map(async (file) => ({
+      name: file.name,
+      relativePath: file.webkitRelativePath || file.name,
+      base64: await fileToBase64(file)
+    })))
+
+    const result = await fetchJson('/api/import-asset', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        copyMode: isVideoPicker(extensions) ? 'file' : 'auto',
+        entryRelativePath: entryFile.webkitRelativePath || entryFile.name,
+        files: payloadFiles
+      })
+    })
+
+    return result || { success: false, error: 'empty-import-result' }
+  }
+
+  function selectFileWithBrowserPicker(options) {
+    const extensions = extractExtensions(options)
+    return new Promise((resolve) => {
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.style.position = 'fixed'
+      input.style.left = '-9999px'
+      input.style.top = '-9999px'
+      input.accept = buildAcceptValue(extensions)
+      input.multiple = !isVideoPicker(extensions)
+
+      const cleanup = () => {
+        input.value = ''
+        if (input.parentNode) {
+          input.parentNode.removeChild(input)
+        }
+      }
+
+      input.addEventListener('change', async () => {
+        try {
+          const result = await uploadBrowserSelectedFiles(input.files, extensions)
+          resolve(result)
+        } catch (error) {
+          resolve({ success: false, error: error && error.message ? error.message : String(error) })
+        } finally {
+          cleanup()
+        }
+      }, { once: true })
+
+      input.addEventListener('cancel', () => {
+        cleanup()
+        resolve({ success: false, canceled: true })
+      }, { once: true })
+
+      document.body.appendChild(input)
+      input.click()
+    })
+  }
+
   function callHost(action, payload) {
     const bridge = getWebViewBridge()
     if (!bridge) {
@@ -122,9 +229,15 @@
       const extensions = kind === 'video'
         ? ['mp4', 'webm', 'ogg', 'mov', 'm4v']
         : ['gltf', 'glb', 'obj', 'mtl']
-      return callHost('selectFileWithFilter', {
+      const options = {
         filters: [{ name: kind || 'Files', extensions }]
-      })
+      }
+      const bridge = getWebViewBridge()
+      if (bridge) {
+        return callHost('selectFileWithFilter', options)
+      }
+
+      return selectFileWithBrowserPicker(options)
     },
     async importAsset(path, kind) {
       return fetchJson('/api/import-asset', {
@@ -179,7 +292,12 @@
       return result || { success: false, error: 'empty-import-result' }
     },
     async selectFileWithFilter(options) {
-      return callHost('selectFileWithFilter', options || {})
+      const bridge = getWebViewBridge()
+      if (bridge) {
+        return callHost('selectFileWithFilter', options || {})
+      }
+
+      return selectFileWithBrowserPicker(options || {})
     },
     async readBinaryFile(path) {
       return callHost('readBinaryFile', { path })
