@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>角色模型3D展示</title>
+  <link rel="stylesheet" href="./css/character-model-3d.css">
+</head>
+
+<body class="edit-mode">
+  <div class="window-frame"></div>
+  <div class="drag-bar">
+    <span class="drag-title">角色模型3D展示</span>
+  </div>
+  <div id="toolbar" class="toolbar">
+    <div class="toolbar-head">
+      <div>
+        <div class="toolbar-title">角色模型3D控制面板</div>
+        <div class="toolbar-subtitle">常用参数常驻，高级参数默认折叠。</div>
+      </div>
+      <button id="toolbarCollapseBtn" class="btn btn-collapse" type="button">收起面板</button>
+    </div>
+    <div id="toolbarBody" class="toolbar-body">
+      <div class="toolbar-layout">
+      <section class="toolbar-section">
+        <h3 class="section-title">场景与资源</h3>
+        <div class="toolbar-row">
+          <button id="modeToggleBtn" class="btn">切换到渲染模式 (F2)</button>
+          <button id="sceneImportBtn" class="btn">导入场景(GLTF/GLB)</button>
+          <button id="sceneClearBtn" class="btn">清空场景</button>
+          <button id="videoImportBtn" class="btn">导入视频屏幕</button>
+          <button id="videoClearBtn" class="btn">清除视频屏幕</button>
+        </div>
+        <div class="toolbar-row">
+          <span class="label">视频屏幕</span>
+          <label><input id="videoLoopEnabled" type="checkbox" checked> 循环播放</label>
+          <label><input id="videoMuted" type="checkbox" checked> 静音</label>
+          <label>宽<input id="videoWidth" type="number" step="0.1" min="0.1" value="2.2"></label>
+          <label>高<input id="videoHeight" type="number" step="0.1" min="0.1" value="1.2"></label>
+          <button id="applyVideoSettingsBtn" class="btn">应用视频参数</button>
+        </div>
+        <div class="toolbar-row">
+          <span class="label">摄像头屏幕</span>
+          <select id="cameraDeviceSelect"></select>
+          <button id="cameraRefreshDevicesBtn" class="btn">刷新设备</button>
+          <button id="cameraStartBtn" class="btn">启动摄像头</button>
+          <button id="cameraStopBtn" class="btn">停止摄像头</button>
+          <button id="virtualCameraModeToggleBtn" class="btn">启用虚拟摄像机主镜头 (F6)</button>
+          <label><input id="cameraMuted" type="checkbox" checked> 静音</label>
+          <label><input id="cameraMirrored" type="checkbox" checked> 镜像</label>
+          <label>宽<input id="cameraWidth" type="number" step="0.1" min="0.1" value="2.2"></label>
+          <label>高<input id="cameraHeight" type="number" step="0.1" min="0.1" value="1.2"></label>
+          <button id="applyCameraSettingsBtn" class="btn">应用摄像头参数</button>
+          <span id="cameraStatus" class="label">摄像头: 未启动</span>
+          <span id="virtualCameraModeStatus" class="label">演播模式: 关闭</span>
+        </div>
+      </section>
+
+      <section class="toolbar-section">
+        <h3 class="section-title">环境与渲染</h3>
+        <div class="toolbar-row">
+          <span class="label">天空与光影预设</span>
+          <select id="environmentPresetSelect">
+            <option value="duskCinema">电影感黄昏</option>
+            <option value="cyberpunkNight">赛博朋克夜景</option>
+            <option value="horrorNight">恐怖风夜晚</option>
+            <option value="sunnyDaylight">晴空日光</option>
+            <option value="studioHighKey">棚拍高调光</option>
+            <option value="goldenNoon">暖阳正午</option>
+            <option value="cloudyStage">柔光阴天</option>
+            <option value="moonlitBlue">月夜蓝调</option>
+            <option value="sunsetRose">玫瑰晚霞</option>
+            <option value="mistyMorning">薄雾清晨</option>
+          </select>
+          <label>画质
+            <select id="renderQualitySelect">
+              <option value="low">低</option>
+              <option value="medium">中</option>
+              <option value="high" selected>高</option>
+              <option value="cinematic">电影级</option>
+              <option value="ultra">超清细节</option>
+            </select>
+          </label>
+          <button id="applyEnvironmentPresetBtn" class="btn">应用预设</button>
+          <label><input id="fogEnabled" type="checkbox" checked> 雾化效果滤镜</label>
+          <label>雾化强度<input id="fogStrength" type="number" step="0.05" min="0" max="3" value="1"></label>
+          <label>阴影强度<input id="shadowStrength" type="number" step="0.01" min="0" max="1" value="0.45"></label>
+          <label><input id="droneModeEnabled" type="checkbox"> 无人机模式</label>
+          <label>最大FPS<input id="maxFps" type="number" step="1" min="10" max="240" value="60"></label>
+        </div>
+        <div class="toolbar-row">
+          <span class="label">天气预设</span>
+          <select id="weatherPresetSelect">
+            <option value="clear">关闭天气</option>
+            <option value="thunderstorm">雷雨天</option>
+            <option value="windy">刮风天</option>
+            <option value="stormWindy">刮风雷雨天</option>
+          </select>
+          <button id="applyWeatherPresetBtn" class="btn">应用天气</button>
+          <span id="weatherPresetInfo" class="label">天气: 关闭</span>
+        </div>
+        <div class="toolbar-row">
+          <span class="label">天气控制</span>
+          <label>风力倍率<input id="weatherWindIntensity" type="number" step="0.1" min="0" max="3" value="1.35"></label>
+          <label><input id="weatherAudioEnabled" type="checkbox" checked> 天气音效</label>
+          <label>音量<input id="weatherAudioVolume" type="number" step="0.05" min="0" max="1" value="0.65"></label>
+          <button id="applyWeatherSettingsBtn" class="btn">应用天气参数</button>
+        </div>
+        <div class="toolbar-row">
+          <span class="label">出场动画</span>
+          <select id="entranceEffectSelect">
+            <option value="fade">淡入</option>
+            <option value="flameDissolve">火焰溶解</option>
+            <option value="cardStorm">卡片纷飞</option>
+            <option value="spotlightRush">聚光冲击</option>
+            <option value="prismBloom">棱镜绽放</option>
+            <option value="mistReveal">雾显登场</option>
+            <option value="none">关闭</option>
+          </select>
+          <button id="particleImportBtn" class="btn">导入粒子特效(GLTF/GLB)</button>
+          <button id="particleClearBtn" class="btn">清除粒子特效</button>
+          <span id="particleFileInfo" class="label">粒子: 未配置</span>
+        </div>
+        <details class="advanced-panel">
+          <summary class="advanced-summary">高级选项：风格化渲染 / 光效精度</summary>
+          <div class="advanced-panel-body">
+            <div class="toolbar-row">
+              <span class="label">风格化渲染</span>
+              <label><input id="stylizedToonEnabled" type="checkbox"> 三渲二</label>
+              <label>阶数
+                <select id="stylizedToonSteps">
+                  <option value="2">2</option>
+                  <option value="3" selected>3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </label>
+              <label><input id="stylizedOutlineEnabled" type="checkbox" checked> 描边</label>
+              <label>粗细<input id="stylizedOutlineThickness" type="number" step="0.0005" min="0.0005" max="0.03" value="0.004"></label>
+              <label>颜色<input id="stylizedOutlineColor" type="color" value="#000000"></label>
+              <label>透明<input id="stylizedOutlineAlpha" type="number" step="0.05" min="0" max="1" value="1"></label>
+            </div>
+            <div class="toolbar-row">
+              <span class="label">高级光效与精度</span>
+              <label><input id="advAntialiasEnabled" type="checkbox" checked> 抗锯齿</label>
+              <label>曝光<input id="advExposure" type="number" step="0.01" min="0.6" max="2.2" value="1"></label>
+              <label>对比<input id="advContrast" type="number" step="0.01" min="0.8" max="1.6" value="1"></label>
+              <label>饱和<input id="advSaturation" type="number" step="0.01" min="0.7" max="1.8" value="1"></label>
+              <label>渲染分辨率
+                <select id="advRenderScale">
+                  <option value="0.75">75%</option>
+                  <option value="1" selected>100%</option>
+                  <option value="1.25">125%</option>
+                  <option value="1.5">150%</option>
+                  <option value="1.75">175%</option>
+                  <option value="2">200%</option>
+                </select>
+              </label>
+              <label>阴影贴图倍率<input id="advShadowMapBoost" type="number" step="0.25" min="0.5" max="2" value="1"></label>
+              <label>阴影柔和倍率<input id="advShadowRadius" type="number" step="0.1" min="0.5" max="2.5" value="1"></label>
+              <label>Shadow Bias<input id="advShadowBias" type="number" step="0.00001" min="-0.001" max="0.001" value="-0.00012"></label>
+              <label>Normal Bias<input id="advShadowNormalBias" type="number" step="0.001" min="0" max="0.1" value="0.01"></label>
+            </div>
+            <div class="toolbar-row">
+              <span class="label">高级灯光倍率</span>
+              <label><input id="advLightTextureEnabled" type="checkbox" checked> 启用风格化光影贴图</label>
+              <label>环境光<input id="advAmbientBoost" type="number" step="0.05" min="0" max="3" value="1"></label>
+              <label>半球光<input id="advHemiBoost" type="number" step="0.05" min="0" max="3" value="1"></label>
+              <label>主光<input id="advKeyBoost" type="number" step="0.05" min="0" max="3" value="1"></label>
+              <label>补光<input id="advFillBoost" type="number" step="0.05" min="0" max="3" value="1"></label>
+              <label>轮廓光<input id="advRimBoost" type="number" step="0.05" min="0" max="3" value="1"></label>
+              <label>反弹光<input id="advBounceBoost" type="number" step="0.05" min="0" max="3" value="1"></label>
+              <button id="applyAdvancedRenderBtn" class="btn">应用高级参数</button>
+              <button id="resetAdvancedRenderBtn" class="btn">恢复高级默认</button>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section class="toolbar-section">
+        <h3 class="section-title">对象编辑</h3>
+        <div class="toolbar-row">
+          <span class="label">编辑对象</span>
+          <div id="slotTabs" class="slot-tabs"></div>
+          <button id="customModelImportBtn" class="btn">导入自定义模型</button>
+          <button id="customModelClearBtn" class="btn">清除自定义模型</button>
+          <button id="focusSelectedBtn" class="btn">镜头对焦所选</button>
+        </div>
+        <div class="toolbar-row grid">
+          <label>X<input id="posX" type="number" step="0.01"></label>
+          <label>Y<input id="posY" type="number" step="0.01"></label>
+          <label>Z<input id="posZ" type="number" step="0.01"></label>
+          <label>RotX<input id="rotX" type="number" step="1"></label>
+          <label>RotY<input id="rotY" type="number" step="1"></label>
+          <label>RotZ<input id="rotZ" type="number" step="1"></label>
+          <label>基础Scale<input id="uniScale" type="number" step="0.01" min="0.01"></label>
+          <button id="applyTransformBtn" class="btn">应用</button>
+          <button id="openRoleScaleModalBtn" class="btn" type="button">角色专属缩放</button>
+        </div>
+        <div class="toolbar-row hint">
+          基础 Scale 仍控制槽位/阵营整体大小；“角色专属缩放”用于修正某个官方角色模型本身偏大或偏小的问题。
+        </div>
+      </section>
+
+      <section class="toolbar-section">
+        <h3 class="section-title">摄像机与光源</h3>
+        <div class="toolbar-row">
+          <span class="label">摄像机关键帧</span>
+          <select id="cameraEventSelect">
+            <option value="survivor1">求生者选了1个</option>
+            <option value="survivor2">求生者选了2个</option>
+            <option value="survivor3">求生者选了3个</option>
+            <option value="survivor4">求生者选了4个</option>
+            <option value="hunterSelected">监管者选了</option>
+            <option value="banUpdated">新增ban位/全局ban</option>
+          </select>
+          <button id="saveCameraKeyframeBtn" class="btn">记录当前视角</button>
+          <button id="previewCameraKeyframeBtn" class="btn">预览关键帧</button>
+          <button id="clearCameraKeyframeBtn" class="btn">清除关键帧</button>
+          <label>切换时长ms<input id="cameraTransitionMs" type="number" step="50" min="50" max="10000" value="900"></label>
+          <label>变速曲线
+            <select id="cameraEasingPreset">
+              <option value="smooth" selected>平滑默认</option>
+              <option value="easeIn">慢入</option>
+              <option value="easeOut">快出</option>
+              <option value="easeInOut">慢入慢出</option>
+              <option value="sharpInOut">强烈加减速</option>
+              <option value="custom">自定义贝塞尔</option>
+            </select>
+          </label>
+          <button id="openCameraCurveModalBtn" class="btn" type="button">打开曲线编辑器</button>
+          <span id="cameraEventInfo" class="label"></span>
+        </div>
+        <div class="toolbar-row">
+          <span class="label">曲线摘要</span>
+          <span id="cameraCurveSummary" class="label">默认平滑</span>
+        </div>
+        <div class="toolbar-row camera-move-row">
+          <span class="label">摄像机六向移动</span>
+          <div class="camera-move-pad">
+            <button class="btn btn-move" data-cam-move="forward">前</button>
+            <button class="btn btn-move" data-cam-move="back">后</button>
+            <button class="btn btn-move" data-cam-move="left">左</button>
+            <button class="btn btn-move" data-cam-move="right">右</button>
+            <button class="btn btn-move" data-cam-move="up">上</button>
+            <button class="btn btn-move" data-cam-move="down">下</button>
+          </div>
+          <label>步进<input id="cameraMoveStep" type="number" step="0.01" min="0.001" value="0.25"></label>
+          <span class="label">点击移动 / 按住连续移动</span>
+        </div>
+        <div class="toolbar-row">
+          <span class="label">光源参数</span>
+          <label>颜色<input id="lightColor" type="color" value="#fff1d6"></label>
+          <label>强度<input id="lightIntensity" type="number" step="0.1" min="0" value="2.4"></label>
+          <button id="applyLightBtn" class="btn">应用光源</button>
+        </div>
+      </section>
+
+      <div class="toolbar-row hint">
+        左键拖拽旋转，右键拖拽(或 Shift+左键)平移视角，滚轮缩放。WASD前后左右，QE上下；按住 Shift + WASD 调整摄像机朝向。F2 切换编辑/渲染，F6 切换虚拟摄像机主镜头。
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="renderRoot" class="render-root"></div>
+  <div id="fogOverlay" class="fog-overlay"></div>
+  <div id="cinemaOverlay" class="cinema-overlay"></div>
+  <div id="weatherOverlay" class="weather-overlay"></div>
+  <div id="weatherWindOverlay" class="weather-wind-overlay"></div>
+  <div id="weatherFlashOverlay" class="weather-flash-overlay"></div>
+  <div id="fpsBadge" class="fps-badge">FPS: --</div>
+  <div id="statusBar" class="status-bar">初始化中...</div>
+
+  <div id="roleScaleModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-card role-scale-modal" role="dialog" aria-modal="true" aria-labelledby="roleScaleModalTitle">
+      <div class="modal-header">
+        <div id="roleScaleModalTitle" class="modal-title">角色专属缩放</div>
+        <button id="closeRoleScaleModalBtn" class="btn" type="button">关闭</button>
+      </div>
+      <div class="modal-body">
+        <div class="toolbar-row">
+          <label>角色
+            <select id="roleScaleRoleSelect"></select>
+          </label>
+        </div>
+        <div id="roleScaleModalEmpty" class="modal-empty">
+          当前没有已载入的求生者或监管者，先在 BP 里选中角色后再设置。
+        </div>
+        <div id="roleScaleModalFields">
+          <div class="toolbar-row grid role-scale-grid">
+            <label>角色倍率<input id="roleScaleValue" type="number" step="0.01" min="0.01"></label>
+            <label>参考槽位基础Scale<input id="roleScaleBaseValue" type="number" step="0.01" disabled></label>
+            <label>参考槽位实际Scale<input id="roleScaleEffectiveValue" type="number" step="0.01" disabled></label>
+          </div>
+          <div id="roleScaleRoleInfo" class="role-scale-info"></div>
+          <div class="toolbar-row">
+            <button id="applyRoleScaleBtn" class="btn" type="button">应用角色缩放</button>
+            <button id="resetRoleScaleBtn" class="btn" type="button">清除角色修正</button>
+          </div>
+          <div class="toolbar-row hint">
+            实际展示缩放 = 槽位基础 Scale × 角色倍率。角色倍率按角色名保存，不绑定到某个槽位。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="cameraCurveModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-card camera-curve-modal" role="dialog" aria-modal="true" aria-labelledby="cameraCurveModalTitle">
+      <div class="modal-header">
+        <div id="cameraCurveModalTitle" class="modal-title">镜头切换曲线编辑器</div>
+        <button id="closeCameraCurveModalBtn" class="btn" type="button">关闭</button>
+      </div>
+      <div class="modal-body">
+        <div class="toolbar-row">
+          <label>曲线预设
+            <select id="cameraCurveModalPreset">
+              <option value="smooth">平滑默认</option>
+              <option value="easeIn">慢入</option>
+              <option value="easeOut">快出</option>
+              <option value="easeInOut">慢入慢出</option>
+              <option value="sharpInOut">强烈加减速</option>
+              <option value="custom">自定义贝塞尔</option>
+            </select>
+          </label>
+          <button id="cameraCurveResetBtn" class="btn" type="button">重置自定义点</button>
+          <span class="label">拖动画布中的两个控制点即可编辑。</span>
+        </div>
+        <div class="curve-editor-shell">
+          <canvas id="cameraCurveCanvas" width="420" height="300"></canvas>
+          <div class="curve-editor-values">
+            <label>X1<input id="cameraBezierX1" type="number" step="0.05" min="0" max="1" value="0.2"></label>
+            <label>Y1<input id="cameraBezierY1" type="number" step="0.05" min="0" max="1" value="0"></label>
+            <label>X2<input id="cameraBezierX2" type="number" step="0.05" min="0" max="1" value="0.2"></label>
+            <label>Y2<input id="cameraBezierY2" type="number" step="0.05" min="0" max="1" value="1"></label>
+            <div id="cameraCurveHint" class="role-scale-info">当前不是“自定义贝塞尔”时，控制点只读。</div>
+          </div>
+        </div>
+        <div class="toolbar-row">
+          <button id="applyCameraCurveBtn" class="btn" type="button">应用曲线</button>
+          <button id="previewCameraCurveBtn" class="btn" type="button">预览当前关键帧</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/plugin-host-adapter.js"></script>
+  <script src="./js/character-model-3d-logic.js"></script>
+</body>
+
+</html>
